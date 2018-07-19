@@ -21,32 +21,24 @@ module.exports = app => {
   app.get('/api/document_list', (req, res) => {
     dbx
       .filesListFolder({path: '/hearing loss'})
-      //  .then(response => response.json())
-      .then(docs => res.json(docs.entries))
+      .then(docs => res.json(docs.entries)) 
       .catch(function(error) {
         res.json({errorMessage: error})
       })
   })
 
-  app.get('/api/document', (req, res) => {
-    dbx
-      .filesListFolder({path: '/hearing loss'})
-      //  .then(response => response.json())
-      .then(docs => res.json(docs.entries))
-      .catch(function(error) {
-        res.json({errorMessage: error})
-      })
-  })
+  app.get('/api/document/:path*', (req, res) => {
+
+    // want the entire path param but the '/' have been custom-encoded with ~2F
+    let downloadPath = '/' + decodeURIComponent(req.params.path).replace('~2F', '/')
+
+    dbx.filesDownload({path: downloadPath})
+     .then(doc => {
+       res.send(new Buffer(doc.fileBinary, 'binary'));
+     })
+    .catch(function(error) {
+      res.json({errorMessage: error})
+    })
+  });
+
 }
-
-// import 'isomorphic-fetch'
-// import {Dropbox} from 'dropbox'
-// //'dropbox').Dropbox;
-// new Dropbox({
-//   accessToken:
-//     '_g9iTtW5PyAAAAAAAAAABoAOc-Frxn0WeSBofydk0_-21t8JzrayBIem2BDezJC0'
-// })
-//   .filesListFolder({path: '/Hearing Loss'})
-//   .then(console.log, console.error)
-//
-// console.log(Dropbox)

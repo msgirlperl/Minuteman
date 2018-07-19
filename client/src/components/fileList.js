@@ -1,6 +1,6 @@
 import React from 'react'
 //, {Component}
-import 'isomorphic-fetch'
+// import 'isomorphic-fetch'
 //import {Dropbox} from 'dropbox'
 import File from './file'
 
@@ -11,7 +11,7 @@ const FileList = ({files}) => {
   return (
     <ul className="list-group">
       {files.map((file, i) => {
-        return <File key={i} id={file.id} name={file.name} />
+        return <File key={i} id={file.id} name={file.name} path={file.path_lower} />
       })}
     </ul>
   )

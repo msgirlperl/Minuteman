@@ -1,20 +1,8 @@
 import React, {Component} from 'react'
-// import logo from './logo.svg'
 import logo from './logo.png'
 import './App.css'
 import FileList from './components/fileList'
 import Api from './Api'
-// import 'isomorphic-fetch'
-// import {Dropbox} from 'dropbox'
-// //'dropbox').Dropbox;
-// new Dropbox({
-//   accessToken:
-//     '_g9iTtW5PyAAAAAAAAAABoAOc-Frxn0WeSBofydk0_-21t8JzrayBIem2BDezJC0'
-// })
-//   .filesListFolder({path: '/Hearing Loss'})
-//   .then(console.log, console.error)
-//
-// console.log(Dropbox)
 
 window.Api = Api
 
@@ -45,21 +33,8 @@ class App extends Component {
     if (filesToDisplay.length === 0) {
       return <h1>Loading</h1>
     }
-    // return (
-    //   <div className="App">
-    //     <header className="App-header">
-    //       <img src={logo} className="App-logo" alt="logo" />
-    //       <h1 className="App-title">
-    //         {"Welcome to Minuteman's Document Repository"}
-    //       </h1>
-    //     </header>
-    //     <div>
-    //       <FileList files={filesToDisplay} />
-    //     </div>
-    //   </div>
-    // )
     return (
-      <div class="container">
+      <div className="container">
         <header className="App-header">
           <img src={logo} className="App-logo" alt="logo" />
           <h2>{"Minuteman Arc's Document Repository"}</h2>
@@ -71,7 +46,4 @@ class App extends Component {
     )
   }
 }
-// <p className="App-intro">
-//   To get started, edit <code>src/App.js</code> and save to reload.
-// </p>
 export default App
