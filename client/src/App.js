@@ -2,6 +2,7 @@ import React, {Component} from 'react'
 import logo from './logo.png'
 import './App.css'
 import FileList from './components/fileList'
+import SearchBox from './components/search'
 import Api from './Api'
 
 window.Api = Api
@@ -12,7 +13,8 @@ class App extends Component {
   constructor() {
     super()
     this.state = {
-      files: []
+      files: [],
+      searchfield:''
     }
   }
 
@@ -28,10 +30,15 @@ class App extends Component {
     //   .then(data => console.log(data))
   }
 
+  onSearchChange = event => this.setState({searchfield: event.target.value});
+
   render() {
-    const filesToDisplay = this.state.files
-    if (filesToDisplay.length === 0) {
-      return <h1>Loading</h1>
+
+    const filteredFiles = this.state.files.
+      filter(file => file.name.toLowerCase().includes(this.state.searchfield.toLowerCase()));
+
+    if (this.state.files.length === 0) {
+      return <h3>Loading...</h3>
     }
     return (
       <div className="container">
@@ -40,7 +47,10 @@ class App extends Component {
           <h2>{"Minuteman Arc's Document Repository"}</h2>
         </header>
         <div>
-          <FileList files={filesToDisplay} />
+          <br />
+          <SearchBox searchChange={this.onSearchChange} />
+          <br />
+          <FileList files={filteredFiles} />
         </div>
       </div>
     )

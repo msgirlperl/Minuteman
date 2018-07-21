@@ -9,11 +9,24 @@ import File from './file'
 const FileList = ({files}) => {
   console.log(files)
   return (
-    <ul className="list-group">
+    // <ul className="list-group">
+    //   {files.map((file, i) => {
+    //     return <File key={i} id={file.id} name={file.name} path={file.path_lower} />
+    //   })}
+    // </ul>
+    <table id="documents" className="table table-hover">
+      <thead>
+      <tr>
+        <th>Title</th>
+
+      </tr>
+    </thead>
+    <tbody>
       {files.map((file, i) => {
         return <File key={i} id={file.id} name={file.name} path={file.path_lower} />
       })}
-    </ul>
+      </tbody>
+    </table>
   )
 }
 

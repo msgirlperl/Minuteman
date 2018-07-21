@@ -9,12 +9,17 @@ import React from 'react'
 const File = ({id, name, path}) => {
 
   // express routing will convert / to the end of the param but we want the entire path as the param
-  const filePath = path.substr(1).replace('/', '~2F') 
-  const url = `http://localhost:5000/api/document/${filePath}`;
+  const filePath = path.substr(1).replace('/', '~2F')
+  const url = `/api/document/${filePath}`;
   return (
-    <li className="list-group-item">
-      <a target="_blank" href={url}>{name}</a>
-    </li>
+    // <li className="list-group-item">
+    //   <a target="_blank" href={url}>{name}</a>
+    // </li>
+    <tr>
+      <td>
+        <a target="_blank" href={url}>{name}</a>
+      </td>
+    </tr>
   )
 }
 
