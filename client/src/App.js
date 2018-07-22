@@ -24,7 +24,7 @@ class App extends Component {
     //     this.setState({files: JSON.parse(res)})
     //   })
     //   .catch(err => console.error(err))
-    fetch('http://localhost:5000/api/document_list')
+    fetch('/api/document_list')
       .then(response => response.json())
       .then(docs => this.setState({files: docs}))
     //   .then(data => console.log(data))
