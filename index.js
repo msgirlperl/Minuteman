@@ -1,5 +1,5 @@
 const express = require('express')
-const mongoose = require('mongoose')
+//const mongoose = require('mongoose')
 const keys = require('./config/keys')
 const cors = require('cors')
 //require('./models/document')
@@ -8,7 +8,7 @@ require('isomorphic-fetch') // or another library of choice.
 const Dropbox = require('dropbox').Dropbox
 const dbx = new Dropbox({accessToken: keys.dropboxAccessToken})
 
-mongoose.connect(keys.mongoURI)
+//mongoose.connect(keys.mongoURI)
 
 const app = express()
 app.use(cors())
