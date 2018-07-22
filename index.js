@@ -2,6 +2,7 @@ const express = require('express')
 //const mongoose = require('mongoose')
 const keys = require('./config/keys')
 const cors = require('cors')
+const path = require('path');
 //require('./models/document')
 
 require('isomorphic-fetch') // or another library of choice.
@@ -12,6 +13,23 @@ const dbx = new Dropbox({accessToken: keys.dropboxAccessToken})
 
 const app = express()
 app.use(cors())
+
+
+// if (process.env.NODE_ENV === 'production') {
+// 	app.use(express.static('client/build'));
+// }
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/public'));
+}
+
+app.get('/', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/public', 'index.html'));
+});
+//
+// app.get('*',(req, res) => {
+//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+// });
 
 // app.use(
 //   cookieSession({

@@ -7,7 +7,7 @@ import File from './file'
 // export default class FileList extends Component {
 
 const FileList = ({files}) => {
-  console.log(files)
+  
   return (
     // <ul className="list-group">
     //   {files.map((file, i) => {
