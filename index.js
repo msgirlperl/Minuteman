@@ -1,35 +1,18 @@
-const express = require('express')
+const express = require('express');
 //const mongoose = require('mongoose')
-const keys = require('./config/keys')
-const cors = require('cors')
+const keys = require('./config/keys');
+const cors = require('cors');
 const path = require('path');
 //require('./models/document')
 
-require('isomorphic-fetch') // or another library of choice.
-const Dropbox = require('dropbox').Dropbox
-const dbx = new Dropbox({accessToken: keys.dropboxAccessToken})
+require('isomorphic-fetch'); // or another library of choice.
+const Dropbox = require('dropbox').Dropbox;
+const dbx = new Dropbox({ accessToken: keys.dropboxAccessToken });
 
 //mongoose.connect(keys.mongoURI)
 
-const app = express()
-app.use(cors())
-
-
-// if (process.env.NODE_ENV === 'production') {
-// 	app.use(express.static('client/build'));
-// }
-
-if (process.env.NODE_ENV === 'production') {
-	app.use(express.static('client/public'));
-}
-
-app.get('/', (request, response) => {
-	response.sendFile(path.join(__dirname, 'client/public', 'index.html'));
-});
-//
-// app.get('*',(req, res) => {
-//     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-// });
+const app = express();
+app.use(cors());
 
 // app.use(
 //   cookieSession({
@@ -40,12 +23,12 @@ app.get('/', (request, response) => {
 // app.use(passport.initialize());
 // app.use(passport.session());
 
-require('./routes/documents')(app)
+require('./routes/documents')(app);
 
 app.use('/api', (req, res, next) => {
-  res.header('Cache-Control', 'no-cache')
-  next()
-})
+  res.header('Cache-Control', 'no-cache');
+  next();
+});
 
 // // Serve static assets in the /public directory
 // app.use(
@@ -57,11 +40,24 @@ app.use('/api', (req, res, next) => {
 app.use((err, req, res, next) => {
   // Handle missing file in public dir as a 404
   if (err.code === 'ENOENT') {
-    return res.status(404).send('404 - Page not found')
+    return res.status(404).send('404 - Page not found');
   }
-  console.log(err)
-  res.status(500).send(err)
-})
+  console.log(err);
+  res.status(500).send(err);
+});
 
-const PORT = process.env.PORT || 5000 // 5000 in dev environment
-app.listen(PORT)
+if (process.env.NODE_ENV === 'production') {
+  // Express will serve up production assets
+  // like our main.js file, or main.css file!
+  app.use(express.static('client/build'));
+
+  // Express will serve up the index.html file
+  // if it doesn't recognize the route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
+const PORT = process.env.PORT || 5000; // 5000 in dev environment
+app.listen(PORT);
