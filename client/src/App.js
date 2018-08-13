@@ -1,44 +1,38 @@
-import React, {Component} from 'react'
-import logo from './logo.png'
-import './App.css'
-import FileList from './components/fileList'
-import SearchBox from './components/search'
-import Api from './Api'
+import React, { Component } from 'react';
+import logo from './logo.png';
+import './App.css';
+import FileList from './components/fileList';
+import SearchBox from './components/search';
+import Api from './Api';
 
-window.Api = Api
+window.Api = Api;
 
-const state = {files: []}
+const state = { files: [] };
 
 class App extends Component {
   constructor() {
-    super()
+    super();
     this.state = {
       files: [],
-      searchfield:''
-    }
+      searchfield: ''
+    };
   }
 
   componentDidMount() {
-    // Api.get('document_list')
-    //   .then(res => {
-    //     this.setState({files: JSON.parse(res)})
-    //   })
-    //   .catch(err => console.error(err))
     fetch('/api/document_list')
       .then(response => response.json())
-      .then(docs => this.setState({files: docs}))
-    //   .then(data => console.log(data))
+      .then(docs => this.setState({ files: docs }));
   }
 
-  onSearchChange = event => this.setState({searchfield: event.target.value});
+  onSearchChange = event => this.setState({ searchfield: event.target.value });
 
   render() {
-
-    const filteredFiles = this.state.files.
-      filter(file => file.name.toLowerCase().includes(this.state.searchfield.toLowerCase()));
+    const filteredFiles = this.state.files.filter(file =>
+      file.name.toLowerCase().includes(this.state.searchfield.toLowerCase())
+    );
 
     if (this.state.files.length === 0) {
-      return <h3>Loading...</h3>
+      return <h3>Loading...</h3>;
     }
     return (
       <div className="container">
@@ -53,7 +47,7 @@ class App extends Component {
           <FileList files={filteredFiles} />
         </div>
       </div>
-    )
+    );
   }
 }
-export default App
+export default App;

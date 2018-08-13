@@ -1,15 +1,23 @@
 const express = require('express');
-//const mongoose = require('mongoose')
+const mongoose = require('mongoose');
 const keys = require('./config/keys');
 const cors = require('cors');
 const path = require('path');
-//require('./models/document')
+require('./models/document');
+require('./services/passport');
 
 require('isomorphic-fetch'); // or another library of choice.
 const Dropbox = require('dropbox').Dropbox;
 const dbx = new Dropbox({ accessToken: keys.dropboxAccessToken });
 
-//mongoose.connect(keys.mongoURI)
+mongoose.connect(
+  keys.mongoURI,
+  { useNewUrlParser: true },
+  err => {
+    if (err) throw err;
+    console.log(`Successfully connected to database.`);
+  }
+);
 
 const app = express();
 app.use(cors());
