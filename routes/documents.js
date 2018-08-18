@@ -27,27 +27,17 @@ module.exports = app => {
       .filesListFolder({ path: '/hearing loss' })
       .then(docs => {
         Documents.find({}).then(docsData => {
-          console.log('fond?');
-          console.log(
-            //5b5e089ce7179a0733417e30,
-            //todo: why is this not finding this?  It finds if we use; doc._id or doc.tag
-            docsData.find(doc => doc.dropboxId == 'cpl9yKTPuQAAAAAAAAAAFA')
-          );
-          console.log('found');
           docs.entries.forEach(entry => {
             entry['newId'] = entry['id'].substring(3);
             const match = docsData.find(
               doc => doc['dropboxId'] == entry['id'].substring(3)
             );
             if (match) {
-              entry['metaData'] = match;
+              entry['tags'] = match.get('tags');
             }
           });
-          console.log(docsData);
           res.json(docs.entries);
         });
-
-        // get the mongoDB data
       })
       .catch(function(error) {
         res.json({ errorMessage: error });

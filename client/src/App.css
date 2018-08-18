@@ -14,6 +14,15 @@
   color: #515659;
 }
 
+.tag {
+  display: inline-block;
+  padding-right: 2px;
+}
+
+.tag::after {
+  content: ' ';
+}
+
 .App-title {
   font-size: 1.5em;
 }

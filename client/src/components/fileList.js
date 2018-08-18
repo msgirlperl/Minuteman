@@ -17,6 +17,7 @@ const FileList = ({ files }) => {
       <thead>
         <tr>
           <th>Title</th>
+          <th>Categories</th>
         </tr>
       </thead>
       <tbody>
@@ -27,6 +28,7 @@ const FileList = ({ files }) => {
               id={file.id}
               name={file.name}
               path={file.path_lower}
+              tags={file.tags || []}
             />
           );
         })}

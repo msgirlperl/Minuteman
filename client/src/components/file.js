@@ -1,4 +1,5 @@
 import React from 'react';
+import Tag from './tag';
 
 // export default class File extends Component {
 //   render() {
@@ -6,7 +7,7 @@ import React from 'react';
 //   }
 // }
 
-const File = ({ id, name, path }) => {
+const File = ({ id, name, path, tags }) => {
   // express routing will convert / to the end of the param but we want the entire path as the param
   const filePath = path.substr(1).replace('/', '~2F');
   const url = `/api/document/${filePath}`;
@@ -19,6 +20,11 @@ const File = ({ id, name, path }) => {
         <a target="_blank" href={url}>
           {name}
         </a>
+      </td>
+      <td>
+        {tags.map((tag, i) => {
+          return <Tag key={i} docId={id} name={name} tag={tag} />;
+        })}
       </td>
     </tr>
   );
