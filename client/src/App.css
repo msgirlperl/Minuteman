@@ -39,3 +39,26 @@
     transform: rotate(360deg);
   }
 }
+
+.filter {
+  text-align: center;
+  width: 100%;
+}
+
+.filter a {
+  color: #636e72;
+  border: 1px solid #636e72;
+  padding: 10px 18px;
+  display: block;
+}
+
+.filter li {
+  display: inline-block;
+  padding: 5px;
+}
+
+.filter .current {
+  background-color: #515659;
+  border-color: #515659;
+  color: #fff;
+}

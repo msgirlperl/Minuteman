@@ -5,6 +5,7 @@ const dbx = new Dropbox({ accessToken: keys.dropboxAccessToken });
 const mongoose = require('mongoose');
 const DocumentTypes = mongoose.model('documentTypes');
 const Documents = mongoose.model('documents');
+const _ = require('lodash');
 
 module.exports = app => {
   // app.get(
@@ -22,7 +23,7 @@ module.exports = app => {
   //   res.send(req.user);
   // });
 
-  app.get('/api/document_list', (req, res, done) => {
+  app.get('/api/document_list', (req, res) => {
     dbx
       .filesListFolder({ path: '/hearing loss' })
       .then(docs => {
@@ -41,8 +42,17 @@ module.exports = app => {
       })
       .catch(function(error) {
         res.json({ errorMessage: error });
-        done(null, null);
       });
+  });
+
+  app.get('/api/tags', (req, res) => {
+    Documents.find({}, { tags: 1, _id: 0 }).then(doctags => {
+      const list = [];
+      doctags.forEach(tagList => {
+        list.push(tagList.get('tags'));
+      });
+      res.json(_.uniq(_.flatten(list)));
+    });
   });
 
   app.get('/api/mir', (req, res) => {

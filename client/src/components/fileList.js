@@ -4,7 +4,7 @@ import React from 'react';
 //import {Dropbox} from 'dropbox'
 import File from './file';
 
-// export default class FileList extends Component {
+//export default class FileList extends Component {
 
 const FileList = ({ files }) => {
   return (
@@ -36,5 +36,30 @@ const FileList = ({ files }) => {
     </table>
   );
 };
+
+// const FileList = ({ files }) => {
+//   return (
+//     // <ul className="list-group">
+//     //   {files.map((file, i) => {
+//     //     return <File key={i} id={file.id} name={file.name} path={file.path_lower} />
+//     //   })}
+//     // </ul>
+//     <div id="documents" className="table table-hover">
+//       <ul className="items">
+//         {files.map((file, i) => {
+//           return (
+//             <File
+//               key={i}
+//               id={file.id}
+//               name={file.name}
+//               path={file.path_lower}
+//               tags={file.tags || []}
+//             />
+//           );
+//         })}
+//       </ul>
+//     </div>
+//   );
+// };
 
 export default FileList;
