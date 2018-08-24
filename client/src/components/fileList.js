@@ -20,45 +20,46 @@ export default class FileList extends Component {
 		});
 	}
 
-//const FileList = ({ files }) => {
   render() {
 
     const files = this.state.files;
-		const elementsHtml = files.map((file, index) => {
-			return (
-				<tr key={"row_"+index}>
-					<td className="cell">
-            <File>
-              key={index}
-              id={file.id}
-              name={file.name}
-              path={file.path_lower}
-            </File>
-					</td>
-					<td className="cell">
-						{ file.tags }
-					</td>
-				</tr>
-			);
-    });
+		// const elementsHtml = files.map((file, index) => {
+		// 	return (
+    //         <File>
+    //           key={index}
+    //           id={file.id}
+    //           name={file.name}
+    //           path={file.path_lower}
+    //         </File>
+		// 	);
+    // });
     
     return (
-
       <table id="documentsTable" className="table table-hover">
         <thead>
           <TableFilter 
             rows={files}
-            onFilterUpdate={this._filterUpdated}>
-            <th filterkey="name">
+            onFilterUpdate={this._filterUpdated} alignleft="true">
+            <th filterkey="name" key="name">
               Title
             </th>
-            <th filterkey="tags">
+            <th filterkey="tags" alignleft="false" key="tag">
               Categories
             </th>
           </TableFilter>
         </thead>
         <tbody id="documents">
-          { elementsHtml}
+          {this.state.files.map((file, i) => {
+            return (
+              <File
+                key={i}
+                id={file.id}
+                name={file.name}
+                path={file.path_lower}
+                tags={file.tags || []}
+              />
+            );
+          })}
         </tbody>
       </table>
     );
